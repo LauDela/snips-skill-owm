@@ -12,7 +12,7 @@ import os
 import sys
 from snipsowm.snipsowm import SnipsOWM
 
-CONFIGURATION_ENCODING_FORMAT = "utf-8"
+#CONFIGURATION_ENCODING_FORMAT = "utf-8"
 CONFIG_INI = "config.ini"
 
 MQTT_IP_ADDR = "localhost"
@@ -21,7 +21,7 @@ MQTT_ADDR = "{}:{}".format(MQTT_IP_ADDR, str(MQTT_PORT))
 
 DIR = os.path.dirname(os.path.realpath(__file__)) + '/alarm/'
 
-lang = "EN"
+lang = "FR"
 
 
 class SnipsConfigParser(ConfigParser.SafeConfigParser):
@@ -194,7 +194,7 @@ if __name__ == "__main__":
     skill = SnipsOWM(config["secret"]["api_key"],
             config["secret"]["default_location"],locale=skill_locale.decode('ascii'))
     
-    lang = "EN"
+    lang = "FR"
     with Hermes(MQTT_ADDR.encode("ascii")) as h:
         h.skill = skill
         h.subscribe_intent("LauDela:searchWeatherForecastItem",
