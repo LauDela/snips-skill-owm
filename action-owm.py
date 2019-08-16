@@ -197,11 +197,11 @@ if __name__ == "__main__":
     lang = "EN"
     with Hermes(MQTT_ADDR.encode("ascii")) as h:
         h.skill = skill
-        h.subscribe_intent("searchWeatherForecastItem",
+        h.subscribe_intent("LauDela:searchWeatherForecastItem",
                            searchWeatherForecastItem) \
-        .subscribe_intent("searchWeatherForecastTemperature",
+        .subscribe_intent("LauDela:searchWeatherForecastTemperature",
                           searchWeatherForecastTemperature) \
-        .subscribe_intent("searchWeatherForecastCondition",
+        .subscribe_intent("LauDela:searchWeatherForecastCondition",
                           searchWeatherForecastCondition) \
-        .subscribe_intent("searchWeatherForecast", searchWeatherForecast) \
+        .subscribe_intent("LauDela:searchWeatherForecast", searchWeatherForecast) \
         .loop_forever()
