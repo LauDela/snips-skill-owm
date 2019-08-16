@@ -2,5 +2,5 @@
 
 [secret]
 api_key=
-locale=
+locale= fr_FR
 default_location=
