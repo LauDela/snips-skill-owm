@@ -12,7 +12,7 @@ import os
 import sys
 from snipsowm.snipsowm import SnipsOWM
 
-#CONFIGURATION_ENCODING_FORMAT = "utf-8"
+CONFIGURATION_ENCODING_FORMAT = "utf-8"
 CONFIG_INI = "config.ini"
 
 MQTT_IP_ADDR = "localhost"
@@ -41,37 +41,43 @@ def getCondition(snips):
       # Determine condition
     if snips.slots.forecast_condition_name:
         res = snips.slots.forecast_condition_name[0].slot_value.value.value
-        return unicode(res)
+        #return unicode(res)
+        return res
     return None
 
 def getLocality(snips):
     if snips.slots.forecast_locality:
         res = snips.slots.forecast_locality[0].slot_value.value.value
-        return unicode(res)
+        #return unicode(res)
+        return res
     return None
 
 def getRegion(snips):
     if snips.slots.forecast_region:
         res = snips.slots.forecast_region[0].slot_value.value.value
-        return unicode(res)
+        #return unicode(res)
+        return res
     return None
 
 def getCountry(snips):
     if snips.slots.forecast_country :
         res = snips.slots.forecast_country[0].slot_value.value.value
-        return unicode(res)
+        #return unicode(res)
+        return res
     return None
 
 def getPOI(snips):
     if snips.slots.forecast_geographical_poi:
         res = snips.slots.forecast_geographical_poi[0].slot_value.value.value
-        return unicode(res)
+        #return unicode(res)
+        return res
     return None
 
 def getItemName(snips):
     if snips.slots.forecast_item:
         res = snips.slots.forecast_item[0].slot_value.value.value
-        return unicode(res)
+        #return unicode(res)
+        return res
     return None
 
 def getDateTime(snips):
@@ -101,7 +107,8 @@ def getAnyLocality(snips):
           or snips.slots.forecast_geographical_poi
 
         if locality:
-          return unicode(locality[0].slot_value.value.value)
+          #return unicode(locality[0].slot_value.value.value)
+          return locality[0].slot_value.value.value
       except Exception:
         pass
 
@@ -140,7 +147,8 @@ def searchWeatherForecastCondition(hermes, intent_message):
                                Region=region, Country=country,
                                POI=geographical_poi)
     current_session_id = intent_message.session_id
-    hermes.publish_end_session(current_session_id, res.decode("latin-1"))
+    #hermes.publish_end_session(current_session_id, res.decode("latin-1"))
+    hermes.publish_end_session(current_session_id, res)
 
 def searchWeatherForecast(hermes, intent_message):
     datetime = getDateTime(intent_message)
@@ -156,7 +164,8 @@ def searchWeatherForecast(hermes, intent_message):
                                Region=region, Country=country,
                                POI=geographical_poi)
     current_session_id = intent_message.session_id
-    hermes.publish_end_session(current_session_id, res.decode("latin-1"))
+    #hermes.publish_end_session(current_session_id, res.decode("latin-1"))
+    hermes.publish_end_session(current_session_id, res)
 
 def searchWeatherForecastItem(hermes, intent_message):
     datetime = getDateTime(intent_message)
@@ -174,7 +183,8 @@ def searchWeatherForecastItem(hermes, intent_message):
                                  Country=country,
                                  POI=geographical_poi)
     current_session_id = intent_message.session_id
-    hermes.publish_end_session(current_session_id, res.decode("latin-1"))
+    #hermes.publish_end_session(current_session_id, res.decode("latin-1"))
+    hermes.publish_end_session(current_session_id, res)
 
 if __name__ == "__main__":
     config = read_configuration_file("config.ini")
@@ -184,7 +194,7 @@ if __name__ == "__main__":
     elif len(config.get("secret").get("api_key")) == 0:
         print "No API key in config.ini, you must setup an OpenWeatherMap API key for this skill to work"
     
-    skill_locale = config.get("secret", {"locale":"en_US"}).get("locale", u"en_US")
+    skill_locale = config.get("secret", {"locale":"fr_FR"}).get("locale", u"fr_FR")
     
     if skill_locale == u"":
         print "No locale information is found!"
