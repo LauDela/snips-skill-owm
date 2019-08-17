@@ -164,8 +164,8 @@ def searchWeatherForecast(hermes, intent_message):
                                Region=region, Country=country,
                                POI=geographical_poi)
     current_session_id = intent_message.session_id
-    hermes.publish_end_session(current_session_id, res.decode("latin-1"))
-    #hermes.publish_end_session(current_session_id, res)
+    #hermes.publish_end_session(current_session_id, res.decode("latin-1"))
+    hermes.publish_end_session(current_session_id, res)
 
 def searchWeatherForecastItem(hermes, intent_message):
     datetime = getDateTime(intent_message)
