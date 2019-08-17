@@ -21,7 +21,7 @@ MQTT_ADDR = "{}:{}".format(MQTT_IP_ADDR, str(MQTT_PORT))
 
 DIR = os.path.dirname(os.path.realpath(__file__)) + '/alarm/'
 
-lang = "FR"
+lang = "EN"
 
 
 class SnipsConfigParser(ConfigParser.SafeConfigParser):
@@ -41,43 +41,43 @@ def getCondition(snips):
       # Determine condition
     if snips.slots.forecast_condition_name:
         res = snips.slots.forecast_condition_name[0].slot_value.value.value
-        #return unicode(res)
-        return res
+        return unicode(res)
+        #return res
     return None
 
 def getLocality(snips):
     if snips.slots.forecast_locality:
         res = snips.slots.forecast_locality[0].slot_value.value.value
-        #return unicode(res)
-        return res
+        return unicode(res)
+        #return res
     return None
 
 def getRegion(snips):
     if snips.slots.forecast_region:
         res = snips.slots.forecast_region[0].slot_value.value.value
-        #return unicode(res)
-        return res
+        return unicode(res)
+        #return res
     return None
 
 def getCountry(snips):
     if snips.slots.forecast_country :
         res = snips.slots.forecast_country[0].slot_value.value.value
-        #return unicode(res)
-        return res
+        return unicode(res)
+        #return res
     return None
 
 def getPOI(snips):
     if snips.slots.forecast_geographical_poi:
         res = snips.slots.forecast_geographical_poi[0].slot_value.value.value
-        #return unicode(res)
-        return res
+        return unicode(res)
+        #return res
     return None
 
 def getItemName(snips):
     if snips.slots.forecast_item:
         res = snips.slots.forecast_item[0].slot_value.value.value
-        #return unicode(res)
-        return res
+        return unicode(res)
+        #return res
     return None
 
 def getDateTime(snips):
@@ -107,8 +107,8 @@ def getAnyLocality(snips):
           or snips.slots.forecast_geographical_poi
 
         if locality:
-          #return unicode(locality[0].slot_value.value.value)
-          return locality[0].slot_value.value.value
+          return unicode(locality[0].slot_value.value.value)
+          #return locality[0].slot_value.value.value
       except Exception:
         pass
 
@@ -147,8 +147,8 @@ def searchWeatherForecastCondition(hermes, intent_message):
                                Region=region, Country=country,
                                POI=geographical_poi)
     current_session_id = intent_message.session_id
-    #hermes.publish_end_session(current_session_id, res.decode("latin-1"))
-    hermes.publish_end_session(current_session_id, res)
+    hermes.publish_end_session(current_session_id, res.decode("latin-1"))
+    #hermes.publish_end_session(current_session_id, res)
 
 def searchWeatherForecast(hermes, intent_message):
     datetime = getDateTime(intent_message)
@@ -164,8 +164,8 @@ def searchWeatherForecast(hermes, intent_message):
                                Region=region, Country=country,
                                POI=geographical_poi)
     current_session_id = intent_message.session_id
-    #hermes.publish_end_session(current_session_id, res.decode("latin-1"))
-    hermes.publish_end_session(current_session_id, res)
+    hermes.publish_end_session(current_session_id, res.decode("latin-1"))
+    #hermes.publish_end_session(current_session_id, res)
 
 def searchWeatherForecastItem(hermes, intent_message):
     datetime = getDateTime(intent_message)
@@ -183,8 +183,8 @@ def searchWeatherForecastItem(hermes, intent_message):
                                  Country=country,
                                  POI=geographical_poi)
     current_session_id = intent_message.session_id
-    #hermes.publish_end_session(current_session_id, res.decode("latin-1"))
-    hermes.publish_end_session(current_session_id, res)
+    hermes.publish_end_session(current_session_id, res.decode("latin-1"))
+    #hermes.publish_end_session(current_session_id, res)
 
 if __name__ == "__main__":
     config = read_configuration_file("config.ini")
@@ -204,7 +204,7 @@ if __name__ == "__main__":
     skill = SnipsOWM(config["secret"]["api_key"],
             config["secret"]["default_location"],locale=skill_locale.decode('ascii'))
     
-    lang = "FR"
+    lang = "EN"
     with Hermes(MQTT_ADDR.encode("ascii")) as h:
         h.skill = skill
         h.subscribe_intent("LauDela:searchWeatherForecastItem",
