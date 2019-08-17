@@ -132,7 +132,8 @@ def searchWeatherForecastTemperature(hermes, intent_message):
     locality = getAnyLocality(intent_message)
     res = hermes.skill.speak_temperature(locality, datetime, granularity)
     current_session_id = intent_message.session_id
-    hermes.publish_end_session(current_session_id, res.decode("latin-1"))
+    #hermes.publish_end_session(current_session_id, res.decode("latin-1"))
+    hermes.publish_end_session(current_session_id, res)
 
 def searchWeatherForecastCondition(hermes, intent_message):
     datetime = getDateTime(intent_message)
