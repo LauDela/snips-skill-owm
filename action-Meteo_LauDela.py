@@ -21,7 +21,7 @@ MQTT_ADDR = "{}:{}".format(MQTT_IP_ADDR, str(MQTT_PORT))
 
 DIR = os.path.dirname(os.path.realpath(__file__)) + '/alarm/'
 
-lang = "FR"
+lang = "EN"
 
 
 class SnipsConfigParser(ConfigParser.SafeConfigParser):
@@ -125,7 +125,8 @@ def searchWeatherForecastTemperature(hermes, intent_message):
     locality = getAnyLocality(intent_message)
     res = hermes.skill.speak_temperature(locality, datetime, granularity)
     current_session_id = intent_message.session_id
-    hermes.publish_end_session(current_session_id, res.decode("latin-1"))
+    #hermes.publish_end_session(current_session_id, res.decode("latin-1"))
+    hermes.publish_end_session(current_session_id, res)
 
 def searchWeatherForecastCondition(hermes, intent_message):
     datetime = getDateTime(intent_message)
@@ -194,7 +195,7 @@ if __name__ == "__main__":
     skill = SnipsOWM(config["secret"]["api_key"],
             config["secret"]["default_location"],locale=skill_locale.decode('ascii'))
     
-    lang = "FR"
+    lang = "EN"
     with Hermes(MQTT_ADDR.encode("ascii")) as h:
         h.skill = skill
         h.subscribe_intent("LauDela:searchWeatherForecastItem",
